@@ -33,7 +33,7 @@ class ClubCustomWidgets {
         color: ColorConstants.panelColor,
       ),
       child: ListView(
-        controller: sc,
+        shrinkWrap: true,
         children: [
           space,
           ClubAndEntityWidgets.getWorkshopEventTabBar(

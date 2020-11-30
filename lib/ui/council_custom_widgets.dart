@@ -17,8 +17,7 @@ class CouncilCustomWidgets {
   final divide = Divider(height: 8.0, thickness: 2.0, color: Colors.blue);
 
   Widget getPanel(
-      {@required ScrollController scrollController,
-      @required BorderRadiusGeometry radius}) {
+      {@required ScrollController sc, @required BorderRadiusGeometry radius}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: radius,
@@ -26,7 +25,7 @@ class CouncilCustomWidgets {
       ),
       padding: EdgeInsets.only(top: 20.0),
       child: ListView(
-        controller: scrollController,
+        controller: sc,
         children: <Widget>[
           space,
           Container(

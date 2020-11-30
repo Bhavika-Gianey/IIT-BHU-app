@@ -5,6 +5,7 @@ import 'package:iit_app/model/colorConstants.dart';
 import 'package:iit_app/ui/workshop_custom_widgets.dart';
 
 class ClubAndEntityWidgets {
+  // function ade non-static to allow scrollcontroller to be passed to two dirrerent tab views.
   static Widget _getWorkshopsAndEvents(
       BuiltAllWorkshopsPost workshops, bool isEvent, Function reload) {
     Widget _builder(w) {
@@ -31,11 +32,6 @@ class ClubAndEntityWidgets {
             // shrinkWrap: true,
             children: [
               SizedBox(height: 15),
-              // Text(
-              //   'Active:',
-              //   style: TextStyle(color: Colors.white, fontSize: 25),
-              //   textAlign: TextAlign.center,
-              // ),
               _builder(workshops.active_workshops
                   .where((w) => isEvent ? !w.is_workshop : w.is_workshop)
                   .toList()),
@@ -46,7 +42,6 @@ class ClubAndEntityWidgets {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 15),
-
               _builder(workshops.past_workshops
                   .where((w) => isEvent ? !w.is_workshop : w.is_workshop)
                   .toList()),
@@ -65,31 +60,34 @@ class ClubAndEntityWidgets {
           color: ColorConstants.workshopContainerBackground,
           borderRadius: BorderRadius.all(Radius.circular(20.0))),
       height: MediaQuery.of(context).size.height * 0.80,
-      child: Column(
-        children: [
-          TabBar(
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicatorColor: ColorConstants.workshopCardContainer,
-            tabs: [
-              Tab(text: 'Workshops'),
-              Tab(text: 'Events'),
-            ],
-            controller: tabController,
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: <Widget>[
-                workshops == null
-                    ? Container(child: Center(child: LoadingCircle))
-                    : _getWorkshopsAndEvents(workshops, false, reload),
-                workshops == null
-                    ? Container(child: Center(child: LoadingCircle))
-                    : _getWorkshopsAndEvents(workshops, true, reload),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        child: Column(
+          children: [
+            TabBar(
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicatorColor: ColorConstants.workshopCardContainer,
+              tabs: [
+                Tab(text: 'Workshops'),
+                Tab(text: 'Events'),
               ],
+              controller: tabController,
             ),
-          ),
-        ],
+            Expanded(
+              child: TabBarView(
+                controller: tabController,
+                children: <Widget>[
+                  workshops == null
+                      ? Container(child: Center(child: LoadingCircle))
+                      : _getWorkshopsAndEvents(workshops, false, reload),
+                  workshops == null
+                      ? Container(child: Center(child: LoadingCircle))
+                      : _getWorkshopsAndEvents(workshops, true, reload),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

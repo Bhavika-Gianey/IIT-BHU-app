@@ -97,8 +97,8 @@ class _CouncilPageState extends State<CouncilPage> {
                   ),
                 ),
                 backdropEnabled: true,
-                panelBuilder: (ScrollController sc) => councilCustomWidgets
-                    .getPanel(scrollController: sc, radius: radius),
+                panelBuilder: (ScrollController sc) =>
+                    councilCustomWidgets.getPanel(sc: sc, radius: radius),
                 minHeight:
                     ClubCouncilAndEntityWidgets.getMinPanelHeight(context),
                 maxHeight:
